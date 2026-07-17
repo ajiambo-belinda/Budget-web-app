@@ -25,13 +25,13 @@ export default function TransactionsScreen({ onEdit }) {
 
   return (
     <div>
-      <h1 className="font-serif text-2xl font-semibold mb-3 text-[#F2EFE6]">Transactions</h1>
+      <h1 className="font-serif text-2xl font-semibold mb-3 text-[var(--color-text)]">Transactions</h1>
 
       <div className="flex gap-2 mb-3">
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="flex-1 text-xs rounded-lg px-2 py-2 border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6]"
+          className="flex-1 text-xs rounded-lg px-2 py-2 border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)]"
         >
           <option value="all">All Types</option>
           <option value="income">Income</option>
@@ -40,7 +40,7 @@ export default function TransactionsScreen({ onEdit }) {
         <select
           value={catFilter}
           onChange={(e) => setCatFilter(e.target.value)}
-          className="flex-1 text-xs rounded-lg px-2 py-2 border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6]"
+          className="flex-1 text-xs rounded-lg px-2 py-2 border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)]"
         >
           <option value="all">All Categories</option>
           {allCats.map((c) => (
@@ -57,7 +57,7 @@ export default function TransactionsScreen({ onEdit }) {
         <div key={t.id} className="flex items-center gap-3 rounded-xl p-3 mb-2 border border-[var(--color-border)] bg-[var(--color-surface)]">
           <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: CATEGORY_COLORS[t.category] }} />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold truncate text-[#F2EFE6]">{t.category}</p>
+            <p className="text-sm font-semibold truncate text-[var(--color-text)]">{t.category}</p>
             {t.note && <p className="text-[11px] truncate text-[var(--color-text-muted)]">{t.note}</p>}
             <p className="text-[10px] text-[var(--color-text-muted)]">{t.date}</p>
           </div>

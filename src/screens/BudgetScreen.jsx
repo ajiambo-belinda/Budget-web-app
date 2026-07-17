@@ -24,7 +24,7 @@ export default function BudgetScreen() {
 
   return (
     <div>
-      <h1 className="font-serif text-2xl font-semibold mb-1 text-[#F2EFE6]">Budget Goals</h1>
+      <h1 className="font-serif text-2xl font-semibold mb-1 text-[var(--color-text)]">Budget Goals</h1>
       <p className="text-xs mb-4 text-[var(--color-text-muted)]">Set a monthly limit per category.</p>
 
       {EXPENSE_CATS.map((cat) => {
@@ -35,7 +35,7 @@ export default function BudgetScreen() {
         return (
           <Card key={cat}>
             <div className="flex justify-between mb-2">
-              <p className="text-sm font-semibold text-[#F2EFE6]">{cat}</p>
+              <p className="text-sm font-semibold text-[var(--color-text)]">{cat}</p>
               <p className="text-[11px] text-[var(--color-text-muted)]">
                 {fmt(spent, currency)}{limit ? ` / ${fmt(limit, currency)}` : ''}
               </p>
@@ -51,7 +51,7 @@ export default function BudgetScreen() {
                 placeholder={limit ? String(limit) : 'Set limit'}
                 value={drafts[cat] || ''}
                 onChange={(e) => setDrafts((d) => ({ ...d, [cat]: e.target.value }))}
-                className="flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] text-[#F2EFE6] px-2 py-1.5 text-xs"
+                className="flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] text-[var(--color-text)] px-2 py-1.5 text-xs"
               />
               <button
                 onClick={() => handleSetLimit(cat)}

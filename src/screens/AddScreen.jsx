@@ -38,7 +38,7 @@ export default function AddScreen({ editingTx, onDone }) {
 
   return (
     <div>
-      <h1 className="font-serif text-2xl font-semibold mb-4 text-[#F2EFE6]">
+      <h1 className="font-serif text-2xl font-semibold mb-4 text-[var(--color-text)]">
         {editingTx ? 'Edit Transaction' : 'Add Transaction'}
       </h1>
 
@@ -48,7 +48,7 @@ export default function AddScreen({ editingTx, onDone }) {
             key={t}
             onClick={() => handleTypeChange(t)}
             className={`flex-1 py-2.5 rounded-xl border border-[var(--color-border)] text-sm font-semibold capitalize ${
-              type === t ? 'bg-[var(--color-gold)] text-[var(--color-bg)]' : 'bg-[var(--color-surface)] text-[#F2EFE6]'
+              type === t ? 'bg-[var(--color-gold)] text-[var(--color-bg)]' : 'bg-[var(--color-surface)] textvar(--color-text)]'
             }`}
           >
             {t}
@@ -62,7 +62,7 @@ export default function AddScreen({ editingTx, onDone }) {
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         placeholder="0.00"
-        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-1 text-sm outline-none"
+        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] px-3 py-2.5 mt-1 mb-1 text-sm outline-none"
       />
       {error && <p className="text-xs text-[ var(--color-rust)] mb-3">{error}</p>}
 
@@ -70,7 +70,7 @@ export default function AddScreen({ editingTx, onDone }) {
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-3 text-sm"
+        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] px-3 py-2.5 mt-1 mb-3 text-sm"
       >
         {cats.map((c) => (
           <option key={c} value={c}>{c}</option>
@@ -82,7 +82,7 @@ export default function AddScreen({ editingTx, onDone }) {
         type="date"
         value={date}
         onChange={(e) => setDate(e.target.value)}
-        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-3 text-sm"
+        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] px-3 py-2.5 mt-1 mb-3 text-sm"
       />
 
       <label className="text-xs font-semibold text-[var(--color-text-muted)]">Note (optional)</label>
@@ -91,7 +91,7 @@ export default function AddScreen({ editingTx, onDone }) {
         value={note}
         onChange={(e) => setNote(e.target.value)}
         placeholder="e.g. Groceries"
-        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-4 text-sm"
+        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] px-3 py-2.5 mt-1 mb-4 text-sm"
       />
 
       <button

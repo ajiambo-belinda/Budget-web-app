@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useBudget } from './context/BudgetContext';
 import NavBar from './components/NavBar';
 import HomeScreen from './screens/HomeScreen';
@@ -12,6 +12,14 @@ function App() {
   const [tab, setTab] = useState('home');
   const [editingTx, setEditingTx] = useState(null);
 
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.add('light');
+    }
+  }, [darkMode]);
+
   function goToAdd(tx = null) {
     setEditingTx(tx);
     setTab('add');
@@ -23,23 +31,22 @@ function App() {
   }
 
   return (
-    <div className={darkMode ? '' : 'light'}>
-      <div className="min-h-screen bg-[var(--color-bg)]">
-        <NavBar
-          tab={tab}
-          setTab={(t) => {
-            if (t === 'add') setEditingTx(null);
-            setTab(t);
-          }}
-        />
-        <main className="px-4 py-6 pb-24 sm:pb-6 max-w-2xl mx-auto">
-          {tab === 'home' && <HomeScreen />}
-          {tab === 'transactions' && <TransactionsScreen onEdit={goToAdd} />}
-          {tab === 'add' && <AddScreen editingTx={editingTx} onDone={handleAddDone} />}
-          {tab === 'budget' && <BudgetScreen />}
-          {tab === 'settings' && <SettingsScreen />}
-        </main>
-      </div>
+    <div className="min-h-screen bg-[var(--color-bg)]">
+      <NavBar
+        tab={tab}
+        setTab={(t) => {
+          if (t === 'add') setEditingTx(null);
+          setTab(t);
+        }}
+      />
+
+      <main className="px-4 py-6 pb-24 sm:pb-6 max-w-2xl mx-auto">
+        {tab === 'home' && <HomeScreen />}
+        {tab === 'transactions' && <TransactionsScreen onEdit={goToAdd} />}
+        {tab === 'add' && <AddScreen editingTx={editingTx} onDone={handleAddDone} />}
+        {tab === 'budget' && <BudgetScreen />}
+        {tab === 'settings' && <SettingsScreen />}
+      </main>
     </div>
   );
 }

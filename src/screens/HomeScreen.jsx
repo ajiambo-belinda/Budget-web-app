@@ -25,7 +25,7 @@ export default function HomeScreen() {
 
   return (
     <div>
-      <h1 className="font-serif text-2xl font-semibold mb-4 text-[#F2EFE6]">Overview</h1>
+      <h1 className="font-serif text-2xl font-semibold mb-4 text-[var(--color-text)]">Overview</h1>
 
       <Card className="bg-[var(--color-surface-alt)]">
         <p className="text-xs mb-1 text-[var(--color-text-muted)]">Total Balance</p>
@@ -43,7 +43,7 @@ export default function HomeScreen() {
         </Card>
       </div>
 
-      <h2 className="text-sm font-semibold mb-2 text-[#F2EFE6]">Spending by Category</h2>
+      <h2 className="text-sm font-semibold mb-2 text-[var(--color-text)]">Spending by Category</h2>
       {chartData.length > 0 ? (
         <Card>
           <div style={{ width: '100%', height: 200 }}>
