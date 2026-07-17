@@ -48,7 +48,7 @@ export default function AddScreen({ editingTx, onDone }) {
             key={t}
             onClick={() => handleTypeChange(t)}
             className={`flex-1 py-2.5 rounded-xl border border-[var(--color-border)] text-sm font-semibold capitalize ${
-              type === t ? 'bg-[var(--color-gold)] text-[var(--color-bg)]' : 'bg-[var(--color-surface)] textvar(--color-text)]'
+              type === t ? 'bg-[var(--color-gold)] text-[var(--color-bg)]' : 'bg-[var(--color-surface)] text-[var(--color-text)]'
             }`}
           >
             {t}
@@ -64,7 +64,7 @@ export default function AddScreen({ editingTx, onDone }) {
         placeholder="0.00"
         className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] px-3 py-2.5 mt-1 mb-1 text-sm outline-none"
       />
-      {error && <p className="text-xs text-[ var(--color-rust)] mb-3">{error}</p>}
+      {error && <p className="text-xs text-[var(--color-rust)] mb-3">{error}</p>}
 
       <label className="text-xs font-semibold text-[var(--color-text-muted)]">Category</label>
       <select

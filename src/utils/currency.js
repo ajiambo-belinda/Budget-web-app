@@ -1,4 +1,4 @@
-export const CURRENCIES = ['USD', 'EUR', 'GBP', 'KES', 'NGN'];
+export const CURRENCIES = ['USD', 'EUR', 'GBP', 'KES', 'NGN', 'UGS', 'TZS'];
 
 const SYMBOLS = {
   USD: '$',
@@ -6,6 +6,8 @@ const SYMBOLS = {
   GBP: '£',
   KES: 'KSh ',
   NGN: '₦',
+  UGS: 'USH',
+  TZS: 'TSH',
 };
 
 export function fmt(amount, currency = 'USD') {
