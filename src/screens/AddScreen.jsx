@@ -47,8 +47,8 @@ export default function AddScreen({ editingTx, onDone }) {
           <button
             key={t}
             onClick={() => handleTypeChange(t)}
-            className={`flex-1 py-2.5 rounded-xl border border-[#2A4B38] text-sm font-semibold capitalize ${
-              type === t ? 'bg-[#D4A24E] text-[#0E1F18]' : 'bg-[#163024] text-[#F2EFE6]'
+            className={`flex-1 py-2.5 rounded-xl border border-[var(--color-border)] text-sm font-semibold capitalize ${
+              type === t ? 'bg-[var(--color-gold)] text-[var(--color-bg)]' : 'bg-[var(--color-surface)] text-[#F2EFE6]'
             }`}
           >
             {t}
@@ -56,47 +56,47 @@ export default function AddScreen({ editingTx, onDone }) {
         ))}
       </div>
 
-      <label className="text-xs font-semibold text-[#8FA895]">Amount</label>
+      <label className="text-xs font-semibold text-[var(--color-text-muted)]">Amount</label>
       <input
         type="number"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         placeholder="0.00"
-        className="w-full rounded-lg border border-[#2A4B38] bg-[#163024] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-1 text-sm outline-none"
+        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-1 text-sm outline-none"
       />
-      {error && <p className="text-xs text-[#C1554B] mb-3">{error}</p>}
+      {error && <p className="text-xs text-[ var(--color-rust)] mb-3">{error}</p>}
 
-      <label className="text-xs font-semibold text-[#8FA895]">Category</label>
+      <label className="text-xs font-semibold text-[var(--color-text-muted)]">Category</label>
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className="w-full rounded-lg border border-[#2A4B38] bg-[#163024] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-3 text-sm"
+        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-3 text-sm"
       >
         {cats.map((c) => (
           <option key={c} value={c}>{c}</option>
         ))}
       </select>
 
-      <label className="text-xs font-semibold text-[#8FA895]">Date</label>
+      <label className="text-xs font-semibold text-[var(--color-text-muted)]">Date</label>
       <input
         type="date"
         value={date}
         onChange={(e) => setDate(e.target.value)}
-        className="w-full rounded-lg border border-[#2A4B38] bg-[#163024] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-3 text-sm"
+        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-3 text-sm"
       />
 
-      <label className="text-xs font-semibold text-[#8FA895]">Note (optional)</label>
+      <label className="text-xs font-semibold text-[var(--color-text-muted)]">Note (optional)</label>
       <input
         type="text"
         value={note}
         onChange={(e) => setNote(e.target.value)}
         placeholder="e.g. Groceries"
-        className="w-full rounded-lg border border-[#2A4B38] bg-[#163024] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-4 text-sm"
+        className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6] px-3 py-2.5 mt-1 mb-4 text-sm"
       />
 
       <button
         onClick={handleSave}
-        className="w-full py-3 rounded-xl font-bold text-sm bg-[#D4A24E] text-[#0E1F18]"
+        className="w-full py-3 rounded-xl font-bold text-sm bg-[var(--color-gold)] text-[var(--color-bg)]"
       >
         {editingTx ? 'Save Changes' : 'Add Transaction'}
       </button>

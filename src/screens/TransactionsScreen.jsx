@@ -31,7 +31,7 @@ export default function TransactionsScreen({ onEdit }) {
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="flex-1 text-xs rounded-lg px-2 py-2 border border-[#2A4B38] bg-[#163024] text-[#F2EFE6]"
+          className="flex-1 text-xs rounded-lg px-2 py-2 border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6]"
         >
           <option value="all">All Types</option>
           <option value="income">Income</option>
@@ -40,7 +40,7 @@ export default function TransactionsScreen({ onEdit }) {
         <select
           value={catFilter}
           onChange={(e) => setCatFilter(e.target.value)}
-          className="flex-1 text-xs rounded-lg px-2 py-2 border border-[#2A4B38] bg-[#163024] text-[#F2EFE6]"
+          className="flex-1 text-xs rounded-lg px-2 py-2 border border-[var(--color-border)] bg-[var(--color-surface)] text-[#F2EFE6]"
         >
           <option value="all">All Categories</option>
           {allCats.map((c) => (
@@ -50,25 +50,25 @@ export default function TransactionsScreen({ onEdit }) {
       </div>
 
       {filtered.length === 0 && (
-        <p className="text-sm text-center mt-8 text-[#8FA895]">No transactions match these filters.</p>
+        <p className="text-sm text-center mt-8 text-[var(--color-text-muted)]">No transactions match these filters.</p>
       )}
 
       {filtered.map((t) => (
-        <div key={t.id} className="flex items-center gap-3 rounded-xl p-3 mb-2 border border-[#2A4B38] bg-[#163024]">
+        <div key={t.id} className="flex items-center gap-3 rounded-xl p-3 mb-2 border border-[var(--color-border)] bg-[var(--color-surface)]">
           <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: CATEGORY_COLORS[t.category] }} />
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold truncate text-[#F2EFE6]">{t.category}</p>
-            {t.note && <p className="text-[11px] truncate text-[#8FA895]">{t.note}</p>}
-            <p className="text-[10px] text-[#8FA895]">{t.date}</p>
+            {t.note && <p className="text-[11px] truncate text-[var(--color-text-muted)]">{t.note}</p>}
+            <p className="text-[10px] text-[var(--color-text-muted)]">{t.date}</p>
           </div>
-          <p className={`text-sm font-bold shrink-0 ${t.type === 'income' ? 'text-[#5CA88F]' : 'text-[#C1554B]'}`}>
+          <p className={`text-sm font-bold shrink-0 ${t.type === 'income' ? 'text-[var(--color-good)]' : 'text-[var(--color-rust)]'}`}>
             {t.type === 'income' ? '+' : '-'}{fmt(t.amount, currency)}
           </p>
           <button onClick={() => onEdit(t)} className="p-1 shrink-0">
-            <Pencil size={14} className="text-[#8FA895]" />
+            <Pencil size={14} className="text-[var(--color-text-muted)]" />
           </button>
           <button onClick={() => handleDelete(t.id)} className="p-1 shrink-0">
-            <Trash2 size={14} className="text-[#C1554B]" />
+            <Trash2 size={14} className="text-[var(--color-rust)]" />
           </button>
         </div>
       ))}

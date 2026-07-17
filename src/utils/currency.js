@@ -28,16 +28,16 @@ export const EXPENSE_CATS = [
 export const INCOME_CATS = ['Salary', 'Freelance', 'Gift', 'Other'];
 
 export const CATEGORY_COLORS = {
-  Food: '#D4A24E',
+  Food: ' var(--color-gold)',
   Transport: '#7CA6C4',
   Rent: '#9B7BC4',
   Entertainment: '#C46B9B',
-  Utilities: '#5CA88F',
+  Utilities: ' var(--color-good)',
   Savings: '#6BA5E7',
   Emergency: '#E76B5B',
   'School Fees': '#B98BD9',
-  Salary: '#5CA88F',
+  Salary: ' var(--color-good)',
   Freelance: '#7CA6C4',
   Gift: '#9B7BC4',
-  Other: '#8FA895',
+  Other: ' var(--color-text-muted)',
 };
