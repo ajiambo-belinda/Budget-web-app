@@ -29,17 +29,25 @@ export default function HomeScreen() {
 
       <Card className="bg-[var(--color-surface-alt)]">
         <p className="text-xs mb-1 text-[var(--color-text-muted)]">Total Balance</p>
-        <p className="font-serif text-3xl font-bold text-[var(--color-accent)]]">{fmt(totals.balance, currency)}</p>
+        <p className="font-serif text-3xl font-bold text-[var(--color-balance)]]">{fmt(totals.balance, currency)}</p>
       </Card>
 
       <div className="flex gap-3 mb-4">
         <Card className="flex-1 mb-0!">
           <p className="text-[11px] mb-1 text-[var(--color-text-muted)]">Income</p>
-          <p className="text-lg font-bold text-[var(--color-accent)]">{fmt(totals.income, currency)}</p>
+          <p className="text-lg font-bold text-[var(--color-good)]">{fmt(totals.income, currency)}</p>
         </Card>
         <Card className="flex-1 mb-0!">
           <p className="text-[11px] mb-1 text-[var(--color-text-muted)]">Expenses</p>
           <p className="text-lg font-bold text-[var(--color-rust)]">{fmt(totals.expense, currency)}</p>
+        </Card>
+        <Card className="flex-1 mb-0!">
+          <p className="text-[11px] mb-1 text-[var(--color-text-muted)]">Savings</p>
+          <p className="text-lg font-bold text-[var(--color-accent)]">{fmt(totals.savings, currency)}</p>
+        </Card>
+        <Card className="flex-1 mb-0!">
+          <p className="text-[11px] mb-1 text-[var(--color-text-muted)]">Investments</p>
+          <p className="text-lg font-bold text-[var(--color-investment)]">{fmt(totals.investments, currency)}</p>
         </Card>
       </div>
 

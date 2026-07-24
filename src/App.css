@@ -1,5 +1,7 @@
 @import "tailwindcss";
+
 :root {
+  /* Dark Theme */
   --color-bg: #0F172A;
   --color-surface: #1E293B;
   --color-surface-alt: #334155;
@@ -8,22 +10,33 @@
   --color-text: #F8FAFC;
   --color-text-muted: #94A3B8;
 
-  --color-accent: #14B8A6; /* Teal */
-  --color-good: #22C55E;   /* Income */
-  --color-rust: #EF4444;   /* Expense */
+  --color-balance: #F8FAFC;     /* Total Balance */
+  --color-good: #22C55E;        /* Income */
+  --color-rust: #EF4444;        /* Expenses */
+  --color-accent: #14B8A6;      /* Savings / Brand */
+  --color-investment: #8B5CF6;  /* Investments */
 }
+
 .light {
+  /* Light Theme */
   --color-bg: #F7F5EF;
   --color-surface: #FFFFFF;
   --color-surface-alt: #F0EDE4;
   --color-border: #E2DCC8;
+
   --color-text: #1F2A22;
   --color-text-muted: #6B7A6E;
   --color-gold: #B8863C;
-  --color-rust: #B03A30;
-  --color-good: #3E8067;
+
+  --color-balance: #1F2A22;     /* Total Balance */
+  --color-good: #3E8067;        /* Income */
+  --color-rust: #B03A30;        /* Expenses */
+  --color-accent: #0F766E;      /* Savings / Brand */
+  --color-investment: #7C3AED;  /* Investments */
 }
+
 body {
   margin: 0;
   background-color: var(--color-bg);
+  color: var(--color-text);
 }
