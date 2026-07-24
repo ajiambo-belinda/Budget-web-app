@@ -1,17 +1,17 @@
 @import "tailwindcss";
-
 :root {
-  --color-bg: #0E1F18;
-  --color-surface: #163024;
-  --color-surface-alt: #1D3B2C;
-  --color-border: #2A4B38;
-  --color-text: #F2EFE6;
-  --color-text-muted: #8FA895;
-  --color-gold: #D4A24E;
-  --color-rust: #C1554B;
-  --color-good: #5CA88F;
-}
+  --color-bg: #0F172A;
+  --color-surface: #1E293B;
+  --color-surface-alt: #334155;
+  --color-border: #475569;
 
+  --color-text: #F8FAFC;
+  --color-text-muted: #94A3B8;
+
+  --color-accent: #14B8A6; /* Teal */
+  --color-good: #22C55E;   /* Income */
+  --color-rust: #EF4444;   /* Expense */
+}
 .light {
   --color-bg: #F7F5EF;
   --color-surface: #FFFFFF;
@@ -23,7 +23,6 @@
   --color-rust: #B03A30;
   --color-good: #3E8067;
 }
-
 body {
   margin: 0;
   background-color: var(--color-bg);

@@ -14,8 +14,12 @@ export default function NavBar({ tab, setTab }) {
       {/* Desktop / tablet: top nav — hidden on small screens */}
       <div className="hidden sm:flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)] bg-[var(--color-surface)]">
         <div className="flex items-center gap-2">
-          <Wallet size={22} className="text-[var(--color-gold)]" />
-          <h1 className="font-serif text-xl font-bold text-[var(--color-gold)]">Fedha</h1>
+          
+         <Wallet size={22} className="text-[var(--color-accent)]" />
+
+<h1 className="font-serif text-xl font-bold text-[var(--color-accent)]">
+  Fedha
+</h1>
         </div>
         <div className="flex gap-1">
           {TABS.map(({ id, label, icon: Icon }) => (

@@ -39,7 +39,7 @@ export default function SettingsScreen() {
           className="absolute top-0.5 w-5 h-5 rounded-full flex items-center justify-center transition-transform bg-[var(--color-bg)]"
           style={{ transform: darkMode ? 'translateX(22px)' : 'translateX(2px)' }}
         >
-          {darkMode ? <Moon size={11} className="text-[var(--color-gold)]" /> : <Sun size={11} className="text-[var(--color-text-muted)]" />}
+          {darkMode ? <Moon size={11} className="text-[var(--color-accent)]]" /> : <Sun size={11} className="text-[var(--color-text-muted)]" />}
         </span>
       </button>
     </div>
