@@ -10,11 +10,14 @@
   --color-text: #F8FAFC;
   --color-text-muted: #94A3B8;
 
-  --color-balance: #F8FAFC;     /* Total Balance */
-  --color-good: #22C55E;        /* Income */
-  --color-rust: #EF4444;        /* Expenses */
-  --color-accent: #14B8A6;      /* Savings / Brand */
-  --color-investment: #8B5CF6;  /* Investments */
+  --color-balance: #F8FAFC;
+  --color-good: #22C55E;
+  --color-rust: #EF4444;
+  --color-accent: #14B8A6;
+  --color-investment: #8B5CF6;
+
+  --color-selected: var(--color-accent);
+  --color-selected-text: #F8FAFC;
 }
 
 .light {
@@ -28,11 +31,14 @@
   --color-text-muted: #6B7A6E;
   --color-gold: #B8863C;
 
-  --color-balance: #1F2A22;     /* Total Balance */
-  --color-good: #3E8067;        /* Income */
-  --color-rust: #B03A30;        /* Expenses */
-  --color-accent: #0F766E;      /* Savings / Brand */
-  --color-investment: #7C3AED;  /* Investments */
+  --color-balance: #1F2A22;
+  --color-good: #3E8067;
+  --color-rust: #B03A30;
+  --color-accent: #0F766E;
+  --color-investment: #7C3AED;
+
+  --color-selected: var(--color-gold);
+  --color-selected-text: #FFFFFF;
 }
 
 body {

@@ -43,18 +43,20 @@ export default function AddScreen({ editingTx, onDone }) {
       </h1>
 
       <div className="flex gap-2 mb-4">
-        {['expense', 'income'].map((t) => (
-          <button
-            key={t}
-            onClick={() => handleTypeChange(t)}
-            className={`flex-1 py-2.5 rounded-xl border border-[var(--color-border)] text-sm font-semibold capitalize ${
-              type === t ? 'bg-[var(--color-gold)] text-[var(--color-bg)]' : 'bg-[var(--color-surface)] text-[var(--color-text)]'
-            }`}
-          >
-            {t}
-          </button>
-        ))}
-      </div>
+  {['expense', 'income'].map((t) => (
+    <button
+      key={t}
+      onClick={() => handleTypeChange(t)}
+      className={`flex-1 py-2.5 rounded-xl border text-sm font-semibold capitalize transition-colors ${
+        type === t
+          ? 'bg-[var(--color-selected)] text-[var(--color-selected-text)] border-[var(--color-selected)]'
+          : 'bg-[var(--color-surface-alt)] text-[var(--color-text-muted)] border-[var(--color-border)]'
+      }`}
+    >
+      {t}
+    </button>
+  ))}
+</div>
 
       <label className="text-xs font-semibold text-[var(--color-text-muted)]">Amount</label>
       <input
@@ -95,11 +97,11 @@ export default function AddScreen({ editingTx, onDone }) {
       />
 
       <button
-        onClick={handleSave}
-        className="w-full py-3 rounded-xl font-bold text-sm bg-[var(--color-gold)] text-[var(--color-bg)]"
-      >
-        {editingTx ? 'Save Changes' : 'Add Transaction'}
-      </button>
+  onClick={handleSave}
+  className="w-full py-3 rounded-xl font-bold text-sm bg-[var(--color-selected)] text-[var(--color-selected-text)]"
+>
+  {editingTx ? 'Save Changes' : 'Add Transaction'}
+</button>
     </div>
   );
 }
