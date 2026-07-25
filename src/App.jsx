@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useBudget } from './context/BudgetContext';
-import Sidebar from './components/Sidebar';
+import SideBar from './components/SideBar';
 import TopBar from './components/TopBar';
 import HomeScreen from './screens/HomeScreen';
 import TransactionsScreen from './screens/TransactionsScreen';
@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="min-h-[100svh] w-full flex relative bg-[var(--color-bg)]">
-      <Sidebar
+      <SideBar
         tab={tab}
         setTab={(t) => { if (t === 'add') setEditingTx(null); setTab(t); }}
         sidebarOpen={sidebarOpen}
