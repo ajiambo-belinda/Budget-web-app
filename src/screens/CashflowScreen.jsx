@@ -22,21 +22,26 @@ export default function CashflowScreen() {
     const map = {};
     transactions.forEach((t) => {
       const key = t.date.slice(0, 7);
-      if (!map[key]) map[key] = { key, income: 0, expense: 0 };
+      if (!map[key]) map[key] = { key, income: 0, expense: 0, savings: 0, investment: 0 };
       if (t.type === 'income') map[key].income += t.amount;
-      else map[key].expense += t.amount;
+      else if (t.type === 'expense') map[key].expense += t.amount;
+      else if (t.type === 'savings') map[key].savings += t.amount;
+      else if (t.type === 'investment') map[key].investment += t.amount;
     });
     const sorted = Object.values(map).sort((a, b) => a.key.localeCompare(b.key));
     let running = 0;
     return sorted.map((m) => {
-      running += m.income - m.expense;
-      return { ...m, net: m.income - m.expense, balance: running };
+      const net = m.income - m.expense - m.savings - m.investment;
+      running += net;
+      return { ...m, net, balance: running };
     });
   }, [transactions]);
 
   const totalIncome = transactions.filter((t) => t.type === 'income').reduce((s, t) => s + t.amount, 0);
   const totalExpense = transactions.filter((t) => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
-  const netCashflow = totalIncome - totalExpense;
+  const totalSavings = transactions.filter((t) => t.type === 'savings').reduce((s, t) => s + t.amount, 0);
+  const totalInvestment = transactions.filter((t) => t.type === 'investment').reduce((s, t) => s + t.amount, 0);
+  const netCashflow = totalIncome - totalExpense - totalSavings - totalInvestment;
   const maxBar = Math.max(1, ...monthly.map((m) => Math.max(m.income, m.expense)));
 
   const balances = monthly.map((m) => m.balance);

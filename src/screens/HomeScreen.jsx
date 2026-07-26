@@ -8,9 +8,12 @@ export default function HomeScreen() {
   const { transactions, currency } = useBudget();
 
   const totals = useMemo(() => {
-    const income = transactions.filter((t) => t.type === 'income').reduce((s, t) => s + t.amount, 0);
-    const expense = transactions.filter((t) => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
-    return { income, expense, balance: income - expense };
+    const sum = (type) => transactions.filter((t) => t.type === type).reduce((s, t) => s + t.amount, 0);
+    const income = sum('income');
+    const expense = sum('expense');
+    const savings = sum('savings');
+    const investments = sum('investment');
+    return { income, expense, savings, investments, balance: income - expense - savings - investments };
   }, [transactions]);
 
   const chartData = useMemo(() => {
@@ -29,23 +32,23 @@ export default function HomeScreen() {
 
       <Card className="bg-[var(--color-surface-alt)]">
         <p className="text-xs mb-1 text-[var(--color-text-muted)]">Total Balance</p>
-        <p className="font-serif text-3xl font-bold text-[var(--color-balance)]]">{fmt(totals.balance, currency)}</p>
+        <p className="font-serif text-3xl font-bold text-[var(--color-balance)]">{fmt(totals.balance, currency)}</p>
       </Card>
 
-      <div className="flex gap-3 mb-4">
-        <Card className="flex-1 mb-0!">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+        <Card className="mb-0!">
           <p className="text-[11px] mb-1 text-[var(--color-text-muted)]">Income</p>
           <p className="text-lg font-bold text-[var(--color-good)]">{fmt(totals.income, currency)}</p>
         </Card>
-        <Card className="flex-1 mb-0!">
+        <Card className="mb-0!">
           <p className="text-[11px] mb-1 text-[var(--color-text-muted)]">Expenses</p>
           <p className="text-lg font-bold text-[var(--color-rust)]">{fmt(totals.expense, currency)}</p>
         </Card>
-        <Card className="flex-1 mb-0!">
+        <Card className="mb-0!">
           <p className="text-[11px] mb-1 text-[var(--color-text-muted)]">Savings</p>
           <p className="text-lg font-bold text-[var(--color-accent)]">{fmt(totals.savings, currency)}</p>
         </Card>
-        <Card className="flex-1 mb-0!">
+        <Card className="mb-0!">
           <p className="text-[11px] mb-1 text-[var(--color-text-muted)]">Investments</p>
           <p className="text-lg font-bold text-[var(--color-investment)]">{fmt(totals.investments, currency)}</p>
         </Card>

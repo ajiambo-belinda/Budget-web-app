@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { useBudget } from '../context/BudgetContext';
-import { EXPENSE_CATS, INCOME_CATS } from '../utils/currency';
+import { TYPE_CATS } from '../utils/currency';
 
 export default function AddScreen({ editingTx, onDone }) {
   const { addTransaction, updateTransaction } = useBudget();
   const [type, setType] = useState(editingTx?.type || 'expense');
   const [amount, setAmount] = useState(editingTx ? String(editingTx.amount) : '');
-  const [category, setCategory] = useState(editingTx?.category || EXPENSE_CATS[0]);
+  const [category, setCategory] = useState(editingTx?.category || TYPE_CATS.expense[0]);
   const [date, setDate] = useState(editingTx?.date || new Date().toISOString().slice(0, 10));
   const [note, setNote] = useState(editingTx?.note || '');
   const [error, setError] = useState('');
 
-  const cats = type === 'expense' ? EXPENSE_CATS : INCOME_CATS;
+  const cats = TYPE_CATS[type];
 
   function handleTypeChange(t) {
     setType(t);
-    setCategory(t === 'expense' ? EXPENSE_CATS[0] : INCOME_CATS[0]);
+    setCategory(TYPE_CATS[t][0]);
   }
 
   function handleSave() {
@@ -42,21 +42,21 @@ export default function AddScreen({ editingTx, onDone }) {
         {editingTx ? 'Edit Transaction' : 'Add Transaction'}
       </h1>
 
-      <div className="flex gap-2 mb-4">
-  {['expense', 'income'].map((t) => (
-    <button
-      key={t}
-      onClick={() => handleTypeChange(t)}
-      className={`flex-1 py-2.5 rounded-xl border text-sm font-semibold capitalize transition-colors ${
-        type === t
-          ? 'bg-[var(--color-selected)] text-[var(--color-selected-text)] border-[var(--color-selected)]'
-          : 'bg-[var(--color-surface-alt)] text-[var(--color-text-muted)] border-[var(--color-border)]'
-      }`}
-    >
-      {t}
-    </button>
-  ))}
-</div>
+      <div className="grid grid-cols-2 gap-2 mb-4">
+        {['expense', 'income', 'savings', 'investment'].map((t) => (
+          <button
+            key={t}
+            onClick={() => handleTypeChange(t)}
+            className={`py-2.5 rounded-xl border text-sm font-semibold capitalize transition-colors ${
+              type === t
+                ? 'bg-[var(--color-selected)] text-[var(--color-selected-text)] border-[var(--color-selected)]'
+                : 'bg-[var(--color-surface-alt)] text-[var(--color-text-muted)] border-[var(--color-border)]'
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
 
       <label className="text-xs font-semibold text-[var(--color-text-muted)]">Amount</label>
       <input
@@ -97,11 +97,11 @@ export default function AddScreen({ editingTx, onDone }) {
       />
 
       <button
-  onClick={handleSave}
-  className="w-full py-3 rounded-xl font-bold text-sm bg-[var(--color-selected)] text-[var(--color-selected-text)]"
->
-  {editingTx ? 'Save Changes' : 'Add Transaction'}
-</button>
+        onClick={handleSave}
+        className="w-full py-3 rounded-xl font-bold text-sm bg-[var(--color-selected)] text-[var(--color-selected-text)]"
+      >
+        {editingTx ? 'Save Changes' : 'Add Transaction'}
+      </button>
     </div>
   );
 }

@@ -1,14 +1,31 @@
 import { useMemo, useState } from 'react';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useBudget } from '../context/BudgetContext';
-import { EXPENSE_CATS, INCOME_CATS, fmt, CATEGORY_COLORS } from '../utils/currency';
+import { EXPENSE_CATS, INCOME_CATS, SAVINGS_CATS, INVESTMENT_CATS, fmt, CATEGORY_COLORS } from '../utils/currency';
+
+const TYPE_COLORS = {
+  income: 'var(--color-good)',
+  expense: 'var(--color-rust)',
+  savings: 'var(--color-accent)',
+  investment: 'var(--color-investment)',
+};
+
+const TYPE_SIGN = {
+  income: '+',
+  expense: '-',
+  savings: '-',
+  investment: '-',
+};
 
 export default function TransactionsScreen({ onEdit }) {
   const { transactions, deleteTransaction, currency } = useBudget();
   const [typeFilter, setTypeFilter] = useState('all');
   const [catFilter, setCatFilter] = useState('all');
 
-  const allCats = useMemo(() => Array.from(new Set([...EXPENSE_CATS, ...INCOME_CATS])), []);
+  const allCats = useMemo(
+    () => Array.from(new Set([...EXPENSE_CATS, ...INCOME_CATS, ...SAVINGS_CATS, ...INVESTMENT_CATS])),
+    []
+  );
 
   const filtered = useMemo(() => {
     return transactions
@@ -36,6 +53,8 @@ export default function TransactionsScreen({ onEdit }) {
           <option value="all">All Types</option>
           <option value="income">Income</option>
           <option value="expense">Expense</option>
+          <option value="savings">Savings</option>
+          <option value="investment">Investment</option>
         </select>
         <select
           value={catFilter}
@@ -61,8 +80,8 @@ export default function TransactionsScreen({ onEdit }) {
             {t.note && <p className="text-[11px] truncate text-[var(--color-text-muted)]">{t.note}</p>}
             <p className="text-[10px] text-[var(--color-text-muted)]">{t.date}</p>
           </div>
-          <p className={`text-sm font-bold shrink-0 ${t.type === 'income' ? 'text-[var(--color-good)]' : 'text-[var(--color-rust)]'}`}>
-            {t.type === 'income' ? '+' : '-'}{fmt(t.amount, currency)}
+          <p className="text-sm font-bold shrink-0" style={{ color: TYPE_COLORS[t.type] }}>
+            {TYPE_SIGN[t.type]}{fmt(t.amount, currency)}
           </p>
           <button onClick={() => onEdit(t)} className="p-1 shrink-0">
             <Pencil size={14} className="text-[var(--color-text-muted)]" />
