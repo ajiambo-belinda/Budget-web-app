@@ -54,11 +54,11 @@ export default function BudgetScreen() {
                 className="flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] text-[var(--color-text)] px-2 py-1.5 text-xs"
               />
               <button
-                onClick={() => handleSetLimit(cat)}
-                className="px-3 rounded-lg text-xs font-bold bg-[var(--color-gold)] text-[var(--color-bg)]"
-              >
-                Set
-              </button>
+  onClick={() => handleSetLimit(cat)}
+  className="px-3 rounded-lg text-xs font-bold bg-[var(--color-accent)] text-[var(--color-selected-text)]"
+>
+  Set
+</button>
             </div>
           </Card>
         );
