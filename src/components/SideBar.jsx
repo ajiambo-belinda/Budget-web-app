@@ -1,4 +1,4 @@
-import { LayoutDashboard, Receipt, PieChart, Target, BarChart3, Settings as SettingsIcon, Wallet, Plus, X, Activity } from 'lucide-react';
+import { LayoutDashboard, Receipt, PieChart, Target, BarChart3, Settings as SettingsIcon, HandCoins, Plus, X, Activity } from 'lucide-react';
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Dashboard', icon: LayoutDashboard },
@@ -22,9 +22,12 @@ export default function Sidebar({ tab, setTab, sidebarOpen, setSidebarOpen, onAd
           <div className="px-2 mb-8 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'var(--color-selected)' }}>
-                <Wallet size={18} color="#fff" />
+                <HandCoins size={18} color="#fff" />
               </div>
-              <span className="font-serif text-lg font-bold text-[var(--color-text)]">Fedha</span>
+              <div className="flex flex-col leading-tight">
+                <span className="font-serif text-lg font-bold text-[var(--color-text)]">Fedha</span>
+                <span className="text-[10px] text-[var(--color-text-muted)]">Make Every Shilling Count.</span>
+              </div>
             </div>
             <button className="lg:hidden text-[var(--color-text-muted)]" onClick={() => setSidebarOpen(false)} aria-label="Close menu">
               <X size={18} />

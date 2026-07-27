@@ -28,7 +28,7 @@ export default function HomeScreen() {
 
   return (
     <div>
-      <h1 className="font-serif text-2xl font-semibold mb-4 text-[var(--color-text)]">Overview</h1>
+      <h1 className="font-serif text-2xl font-semibold mb-4 text-[var(--color-text)]">Dashboard Overview</h1>
 
       <Card className="bg-[var(--color-surface-alt)]">
         <p className="text-xs mb-1 text-[var(--color-text-muted)]">Total Balance</p>
