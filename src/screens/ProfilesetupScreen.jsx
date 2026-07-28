@@ -74,7 +74,7 @@ export function BudgetProvider({ children }) {
     setBudgets((prev) => ({ ...prev, [category]: limit }));
   }
 
-
+  
   function addGoal(name, target, targetDate) {
     const newGoal = {
       id: Date.now().toString(),
