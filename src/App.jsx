@@ -10,12 +10,15 @@ import GoalsScreen from './screens/GoalsScreen';
 import ReportsScreen from './screens/ReportsScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import CashflowScreen from './screens/CashflowScreen';
+import ProfileSetupScreen from './screens/ProfileSetupScreen';
+import LoginScreen from './screens/LoginScreen';
 
 function App() {
-  const { darkMode } = useBudget();
+  const { darkMode, profile, authLoading } = useBudget();
   const [tab, setTab] = useState('home');
   const [editingTx, setEditingTx] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [authScreen, setAuthScreen] = useState('signup'); // 'signup' or 'login'
 
   useEffect(() => {
     if (darkMode) {
@@ -33,6 +36,24 @@ function App() {
   function handleAddDone() {
     setEditingTx(null);
     setTab('transactions');
+  }
+
+  // Still checking localStorage for a saved token — show a brief loading state
+  if (authLoading) {
+    return (
+      <div className="min-h-[100svh] w-full flex items-center justify-center bg-[var(--color-bg)]">
+        <p className="text-sm text-[var(--color-text-muted)]">Loading...</p>
+      </div>
+    );
+  }
+
+  // Not logged in — show signup or login depending on toggle state
+  if (!profile) {
+    return authScreen === 'signup' ? (
+      <ProfileSetupScreen onSwitchToLogin={() => setAuthScreen('login')} />
+    ) : (
+      <LoginScreen onSwitchToSignup={() => setAuthScreen('signup')} />
+    );
   }
 
   return (
@@ -57,7 +78,6 @@ function App() {
           {tab === 'goals' && <GoalsScreen />}
           {tab === 'reports' && <ReportsScreen />}
           {tab === 'settings' && <SettingsScreen />}
-          
         </main>
       </div>
     </div>

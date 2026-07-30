@@ -1,131 +1,165 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-
+import { api } from '../utils/api';
 
 const BudgetContext = createContext(null);
 
+// MongoDB returns `_id`; our screens use `.id`. Normalize once here so nothing else has to change.
+function withId(doc) {
+  if (!doc) return doc;
+  return { ...doc, id: doc.id || doc._id };
+}
 
 export function BudgetProvider({ children }) {
-  
-  const [transactions, setTransactions] = useState(() => {
-    const saved = localStorage.getItem('transactions');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [transactions, setTransactions] = useState([]);
+  const [budgets, setBudgets] = useState({});
+  const [goals, setGoals] = useState([]);
+  const [dataLoading, setDataLoading] = useState(false);
 
-  const [budgets, setBudgets] = useState(() => {
-    const saved = localStorage.getItem('budgets');
-    return saved ? JSON.parse(saved) : {};
-  });
+  const [profile, setProfileState] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [authError, setAuthError] = useState('');
 
-  const [goals, setGoals] = useState(() => {
-    const saved = localStorage.getItem('goals');
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  
-  
-  const [profile, setProfileState] = useState(() => {
-    const saved = localStorage.getItem('profile');
-    return saved ? JSON.parse(saved) : null;
-  });
-
-  const [currency, setCurrency] = useState(() => {
-    const saved = localStorage.getItem('currency');
-    return saved || 'USD';
-  });
-
+  const [currency, setCurrency] = useState('USD');
   const [darkMode, setDarkMode] = useState(true);
 
-  
-  useEffect(() => {
-    localStorage.setItem('transactions', JSON.stringify(transactions));
-  }, [transactions]);
-
-  useEffect(() => {
-    localStorage.setItem('budgets', JSON.stringify(budgets));
-  }, [budgets]);
-
-  useEffect(() => {
-    localStorage.setItem('goals', JSON.stringify(goals));
-  }, [goals]);
-
-  useEffect(() => {
-    if (profile) localStorage.setItem('profile', JSON.stringify(profile));
-  }, [profile]);
-
-  useEffect(() => {
-    localStorage.setItem('currency', currency);
-  }, [currency]);
-
-  
-  function addTransaction(tx) {
-    const newTx = { ...tx, id: Date.now().toString() };
-    setTransactions((prev) => [newTx, ...prev]);
+  // Loads everything for the logged-in user in one go
+  async function loadUserData() {
+    setDataLoading(true);
+    try {
+      const [txRes, budgetRes, goalRes] = await Promise.all([
+        api.get('/transactions'),
+        api.get('/budgets'),
+        api.get('/goals'),
+      ]);
+      setTransactions(txRes.transactions.map(withId));
+      setBudgets(budgetRes.budgets);
+      setGoals(goalRes.goals.map(withId));
+    } catch (err) {
+      console.error('Failed to load user data:', err.message);
+    } finally {
+      setDataLoading(false);
+    }
   }
 
-  function updateTransaction(updatedTx) {
-    setTransactions((prev) => prev.map((t) => (t.id === updatedTx.id ? updatedTx : t)));
+  // On first load, check if there's a saved token and try to restore the session
+  useEffect(() => {
+    async function restoreSession() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setAuthLoading(false);
+        return;
+      }
+
+      try {
+        const { user } = await api.get('/auth/me');
+        setProfileState(user);
+        setCurrency(user.currency || 'USD');
+        setDarkMode(user.darkMode ?? true);
+        await loadUserData();
+      } catch (err) {
+        localStorage.removeItem('token');
+        setProfileState(null);
+      } finally {
+        setAuthLoading(false);
+      }
+    }
+
+    restoreSession();
+  }, []);
+
+  async function signup({ name, email, password, photo }) {
+    setAuthError('');
+    try {
+      const { token, user } = await api.post('/auth/signup', { name, email, password, photo, currency });
+      localStorage.setItem('token', token);
+      setProfileState(user);
+      await loadUserData();
+      return true;
+    } catch (err) {
+      setAuthError(err.message);
+      return false;
+    }
   }
 
-  function deleteTransaction(id) {
+  async function login({ email, password }) {
+    setAuthError('');
+    try {
+      const { token, user } = await api.post('/auth/login', { email, password });
+      localStorage.setItem('token', token);
+      setProfileState(user);
+      setCurrency(user.currency || 'USD');
+      setDarkMode(user.darkMode ?? true);
+      await loadUserData();
+      return true;
+    } catch (err) {
+      setAuthError(err.message);
+      return false;
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem('token');
+    setProfileState(null);
+    setTransactions([]);
+    setBudgets({});
+    setGoals([]);
+  }
+
+  // --- Transactions ---
+
+  async function addTransaction(tx) {
+    const { transaction } = await api.post('/transactions', tx);
+    setTransactions((prev) => [withId(transaction), ...prev]);
+  }
+
+  async function updateTransaction(updatedTx) {
+    const { transaction } = await api.put(`/transactions/${updatedTx.id}`, updatedTx);
+    const normalized = withId(transaction);
+    setTransactions((prev) => prev.map((t) => (t.id === normalized.id ? normalized : t)));
+  }
+
+  async function deleteTransaction(id) {
+    await api.delete(`/transactions/${id}`);
     setTransactions((prev) => prev.filter((t) => t.id !== id));
   }
 
-  function setBudgetLimit(category, limit) {
+  // --- Budgets ---
+
+  async function setBudgetLimit(category, limit) {
+    await api.put(`/budgets/${encodeURIComponent(category)}`, { limit });
     setBudgets((prev) => ({ ...prev, [category]: limit }));
   }
 
+  // --- Goals ---
 
-  function addGoal(name, target, targetDate) {
-    const newGoal = {
-      id: Date.now().toString(),
-      name,
-      target,
-      saved: 0,
-      targetDate: targetDate || null,
-    };
-    setGoals((prev) => [newGoal, ...prev]);
+  async function addGoal(name, target, targetDate) {
+    const { goal } = await api.post('/goals', { name, target, targetDate });
+    setGoals((prev) => [withId(goal), ...prev]);
   }
 
-  
-  function contributeToGoal(id, amount) {
-    const goal = goals.find((g) => g.id === id);
-    if (!goal) return;
-
-    setGoals((prev) =>
-      prev.map((g) => (g.id === id ? { ...g, saved: g.saved + amount } : g))
-    );
-
-    addTransaction({
-      type: 'savings',
-      amount,
-      category: goal.name,
-      date: new Date().toISOString().slice(0, 10),
-      note: `Contribution to ${goal.name}`,
-    });
+  async function contributeToGoal(id, amount) {
+    const { goal, transaction } = await api.put(`/goals/${id}/contribute`, { amount });
+    const normalizedGoal = withId(goal);
+    setGoals((prev) => prev.map((g) => (g.id === normalizedGoal.id ? normalizedGoal : g)));
+    setTransactions((prev) => [withId(transaction), ...prev]);
   }
 
-  function deleteGoal(id) {
+  async function deleteGoal(id) {
+    await api.delete(`/goals/${id}`);
     setGoals((prev) => prev.filter((g) => g.id !== id));
   }
 
-  
-  function createProfile({ name, email, password, photo }) {
-    setProfileState({ name, email, password, photo: photo || null });
-  }
-
-  
-  function updateProfilePhoto(photo) {
-    setProfileState((prev) => (prev ? { ...prev, photo } : prev));
-  }
-
-  
   const value = {
     transactions,
     budgets,
     goals,
+    dataLoading,
     profile,
-    createProfile,
-    updateProfilePhoto,
+    authLoading,
+    authError,
+    signup,
+    login,
+    logout,
     currency,
     setCurrency,
     darkMode,
@@ -141,7 +175,6 @@ export function BudgetProvider({ children }) {
 
   return <BudgetContext.Provider value={value}>{children}</BudgetContext.Provider>;
 }
-
 
 export function useBudget() {
   return useContext(BudgetContext);
