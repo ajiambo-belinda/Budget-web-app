@@ -1,12 +1,13 @@
-import { LayoutDashboard, Receipt, PieChart, Target, BarChart3, Settings as SettingsIcon, HandCoins, Plus, X, Activity } from 'lucide-react';
+import { LayoutDashboard, Receipt, PieChart, Target, BarChart3, Settings as SettingsIcon, HandCoins, Plus, X, Activity, Sparkles } from 'lucide-react';
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'transactions', label: 'Transactions', icon: Receipt },
- { id: 'cashflow', label: 'Cashflow', icon: Activity },
+  { id: 'cashflow', label: 'Cashflow', icon: Activity },
   { id: 'budget', label: 'Budgets', icon: PieChart },
   { id: 'goals', label: 'Savings Goals', icon: Target },
   { id: 'reports', label: 'Reports', icon: BarChart3 },
+  { id: 'assistant', label: 'AI Assistant', icon: Sparkles },
   { id: 'settings', label: 'Settings', icon: SettingsIcon },
 ];
 
@@ -26,7 +27,7 @@ export default function Sidebar({ tab, setTab, sidebarOpen, setSidebarOpen, onAd
               </div>
               <div className="flex flex-col leading-tight">
                 <span className="font-serif text-lg font-bold text-[var(--color-text)]">Fedha</span>
-                <span className="text-[10px] text-[var(--color-text-muted)]">Make Every Shilling Count.</span>
+                <span className="text-[10px] text-[var(--color-text-muted)]">Swahili for "money"</span>
               </div>
             </div>
             <button className="lg:hidden text-[var(--color-text-muted)]" onClick={() => setSidebarOpen(false)} aria-label="Close menu">
@@ -68,3 +69,4 @@ export default function Sidebar({ tab, setTab, sidebarOpen, setSidebarOpen, onAd
     </>
   );
 }
+

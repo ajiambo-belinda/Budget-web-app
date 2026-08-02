@@ -12,6 +12,7 @@ import SettingsScreen from './screens/SettingsScreen';
 import CashflowScreen from './screens/CashflowScreen';
 import ProfileSetupScreen from './screens/ProfileSetupScreen';
 import LoginScreen from './screens/LoginScreen';
+import AssistantScreen from './screens/AssistantScreen';
 
 function App() {
   const { darkMode, profile, authLoading } = useBudget();
@@ -77,6 +78,7 @@ function App() {
           {tab === 'budget' && <BudgetScreen />}
           {tab === 'goals' && <GoalsScreen />}
           {tab === 'reports' && <ReportsScreen />}
+          {tab === 'assistant' && <AssistantScreen />}
           {tab === 'settings' && <SettingsScreen />}
         </main>
       </div>
